@@ -1,1 +1,5 @@
-export const helloWorld = 'Hello World!';
+import { Auth } from './auth/index';
+
+export default {
+  Auth,
+};
