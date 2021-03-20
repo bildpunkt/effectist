@@ -3,9 +3,26 @@ import fetch from 'isomorphic-unfetch';
 
 const FormData = require('form-data');
 
+/**
+ * Helper class to aid with the OAuth authorization flow
+ */
 export class Auth {
+  /**
+   * Local instance of auth options used across methods
+   */
   options: AuthOptions;
 
+  /**
+   * Auth class constructor
+   *
+   * @param options - see {@link AuthOptions}
+   *
+   * @throws Error
+   * Generic `Error` is thrown for multiple cases in the constructor:
+   * - `options.clientId` is not set
+   * - `options.clientSecret` is not set
+   * - `options.scope` is not properly set
+   */
   constructor(options: AuthOptions) {
     const defaultOptions: Partial<AuthOptions> = {
       baseUrl: 'https://todoist.com/oauth',
@@ -27,6 +44,11 @@ export class Auth {
     this.options = Object.assign(defaultOptions, options);
   }
 
+  /**
+   * Method to get a authorization URL from the passed {@link AuthOptions}
+   *
+   * @returns The authorization URL
+   */
   getAuthorizationUrl(): string {
     const url = new URL(`${this.options.baseUrl}/authorize`);
 
@@ -37,6 +59,20 @@ export class Auth {
     return url.toString();
   }
 
+  /**
+   * Method to get the authorization code from the redirect URL resulted from {@link Auth.getAuthorizationUrl}
+   *
+   * @param redirectUrl - The URL Todoist redirected us to
+   *
+   * @throws Error
+   * Generic `Error` is thrown for multiple cases:
+   * - `redirectUrl` contains an `error` query parameter
+   * - the `state` query parameter is missing
+   * - the `state` query parameter is not matching the {@link Auth.options.(state:instance) | `options.state`} value
+   * - there is no `code` query parameter present
+   *
+   * @returns The authorization code required to exchange for an access token
+   */
   getAuthorizationCode(redirectUrl: string): string {
     const url = new URL(redirectUrl);
 
@@ -63,6 +99,16 @@ export class Auth {
     return url.searchParams.get('code')!;
   }
 
+  /**
+   * Method to get the access token
+   *
+   * @param code - Authorization code that resulted from {@link Auth.getAuthorizationCode}
+   *
+   * @throws Error
+   * Generic `Error` is thrown for error cases the API returns
+   *
+   * @returns The access token required for further interaction with Todoist endpoints
+   */
   async getAccessToken(code: string): Promise<string | undefined> {
     const formData = new FormData();
 
