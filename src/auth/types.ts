@@ -25,7 +25,7 @@ export interface AuthOptions {
    * @defaultValue a randomly generated string
    * @see {@link https://developer.todoist.com/guides/#step-1-authorization-request}
    */
-  state: string;
+  state?: string;
 
   /**
    * The base for all requests made by the {@link Auth} module

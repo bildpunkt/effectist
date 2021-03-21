@@ -54,7 +54,7 @@ export class Auth {
 
     url.searchParams.append('client_id', this.options.clientId);
     url.searchParams.append('scope', this.options.scope.join(','));
-    url.searchParams.append('state', this.options.state);
+    url.searchParams.append('state', this.options.state!);
 
     return url.toString();
   }
