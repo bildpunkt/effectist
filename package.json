@@ -31,6 +31,7 @@
     "*.{js,ts}": "eslint --fix"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "form-data": "^2.3.3",
     "isomorphic-unfetch": "^3.1.0"
   },
