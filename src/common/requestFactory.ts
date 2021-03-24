@@ -5,7 +5,6 @@ import deepmerge from 'deepmerge';
  * Factory class for creating requests
  */
 export default class RequestFactory {
-
   /**
    * Base URL for the API requests
    */
@@ -18,7 +17,7 @@ export default class RequestFactory {
 
   /**
    * Class constructor
-   * 
+   *
    * @param accessToken - Access token required to authenticate against the Todoist API
    * @param baseUrl - Base URL for the API requests
    * @param requestInit - Additional options to be passed with every request
@@ -39,10 +38,10 @@ export default class RequestFactory {
 
   /**
    * Method to create a generic GET request
-   * 
+   *
    * @param input - Request URL
    * @param init - Additional options
-   * 
+   *
    * @returns the requests response
    */
   makeRequest(input = '', init: RequestInit = {}): Promise<Response> {
@@ -53,11 +52,11 @@ export default class RequestFactory {
 
   /**
    * Method to create a generic POST request
-   * 
+   *
    * @param input - Request URL
    * @param data - Request data/body
    * @param init - Additional options
-   * 
+   *
    * @returns the requests response
    */
   makePostRequest(input = '', data: BodyInit, init: RequestInit = {}): Promise<Response> {
@@ -71,10 +70,10 @@ export default class RequestFactory {
 
   /**
    * Method to create a generic DELETE request
-   * 
+   *
    * @param input - Request URL
    * @param init - Additional options
-   * 
+   *
    * @returns the requests response
    */
   makeDeleteRequest(input = '', init: RequestInit = {}): Promise<Response> {
