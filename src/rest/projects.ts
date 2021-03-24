@@ -47,7 +47,11 @@ export class Projects {
    * @returns the created project
    */
   async create(parameters: Partial<ProjectCreateParameters>): Promise<Project> {
-    const response = await this.requestFactory.makePostRequest('', JSON.stringify(parameters));
+    const response = await this.requestFactory.makePostRequest('', JSON.stringify(parameters), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
     return response.json();
   }
@@ -72,7 +76,11 @@ export class Projects {
    * @param parameters - options defining how we want to update the project
    */
   async update(projectId: number, parameters: Partial<ProjectUpdateParameters>): Promise<void> {
-    await this.requestFactory.makePostRequest(`/${projectId}`, JSON.stringify(parameters));
+    await this.requestFactory.makePostRequest(`/${projectId}`, JSON.stringify(parameters), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   /**
